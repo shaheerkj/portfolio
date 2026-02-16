@@ -1004,12 +1004,15 @@ CTYPE html>
 
       // Handle navigation clicks
       navLinks.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const pageId = link.getAttribute("data-page");
-          navigateTo(pageId);
-        });
-      });
+        const pageId = link.getAttribute("data-page");
+          if (!pageId) return; // Skip links without data-page (external links)
+
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                    navigateTo(pageId);
+                      });
+                      });
+
 
       // Handle page load with hash
       window.addEventListener("load", () => {
