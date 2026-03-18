@@ -1,1036 +1,969 @@
-CTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Name | Cybersecurity Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Bebas+Neue&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      :root {
-        --bg-primary: #0a0a0a;
-        --bg-secondary: #111111;
-        --accent: #00ff41;
-        --text-primary: #ffffff;
-        --text-secondary: #888888;
-        --border: #1a1a1a;
-        --hover: #1a1a1a;
-      }
-
-      body {
-        font-family: "JetBrains Mono", monospace;
-        background: var(--bg-primary);
-        color: var(--text-primary);
-        line-height: 1.6;
-        overflow-x: hidden;
-      }
-
-      /* Animated background grid */
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image:
-          linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
-        background-size: 50px 50px;
-        z-index: 0;
-        pointer-events: none;
-        animation: gridMove 20s linear infinite;
-      }
-
-      @keyframes gridMove {
-        0% {
-          transform: translate(0, 0);
-        }
-        100% {
-          transform: translate(50px, 50px);
-        }
-      }
-
-      /* Navigation */
-      nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 2rem 4rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 1000;
-        background: rgba(10, 10, 10, 0.8);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .logo {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 2rem;
-        letter-spacing: 2px;
-        color: var(--accent);
-        text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 3rem;
-        list-style: none;
-      }
-
-      .nav-links a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: all 0.3s ease;
-        position: relative;
-      }
-
-      .nav-links a::after {
-        content: "";
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--accent);
-        transition: width 0.3s ease;
-      }
-
-      .nav-links a:hover {
-        color: var(--accent);
-      }
-
-      .nav-links a:hover::after {
-        width: 100%;
-      }
-
-      .nav-links a.active {
-        color: var(--accent);
-      }
-
-      /* Page sections */
-      .page {
-        display: none;
-        min-height: 100vh;
-        padding: 8rem 4rem 4rem;
-        position: relative;
-        z-index: 1;
-        animation: fadeIn 0.5s ease;
-      }
-
-      .page.active {
-        display: block;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* Home Page */
-      #home {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        max-width: 1400px;
-        margin: 0 auto;
-      }
-
-      .hero-title {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(4rem, 10vw, 8rem);
-        line-height: 0.9;
-        margin-bottom: 1rem;
-        color: var(--text-primary);
-        text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-      }
-
-      .hero-subtitle {
-        font-size: clamp(1.5rem, 3vw, 2.5rem);
-        color: var(--accent);
-        margin-bottom: 2rem;
-        font-weight: 700;
-      }
-
-      .hero-description {
-        font-size: 1.1rem;
-        color: var(--text-secondary);
-        max-width: 600px;
-        margin-bottom: 3rem;
-        line-height: 1.8;
-      }
-
-      .cta-buttons {
-        display: flex;
-        gap: 2rem;
-      }
-
-      .btn {
-        padding: 1rem 2.5rem;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border: 2px solid var(--accent);
-        background: transparent;
-        color: var(--accent);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-block;
-      }
-
-      .btn:hover {
-        background: var(--accent);
-        color: var(--bg-primary);
-        box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
-      }
-
-      .btn-secondary {
-        border: 2px solid var(--text-secondary);
-        color: var(--text-secondary);
-      }
-
-      .btn-secondary:hover {
-        background: var(--text-secondary);
-        color: var(--bg-primary);
-        box-shadow: 0 0 20px rgba(136, 136, 136, 0.3);
-      }
-
-      /* About Page */
-      .about-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-      }
-
-      .section-title {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 4rem;
-        margin-bottom: 2rem;
-        color: var(--accent);
-        text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-      }
-
-      .about-text {
-        color: var(--text-secondary);
-        font-size: 1rem;
-        line-height: 1.8;
-        margin-bottom: 2rem;
-      }
-
-      .about-stats {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-        margin-top: 3rem;
-      }
-
-      .stat-box {
-        border: 1px solid var(--border);
-        padding: 2rem;
-        background: var(--bg-secondary);
-        transition: all 0.3s ease;
-      }
-
-      .stat-box:hover {
-        border-color: var(--accent);
-        transform: translateY(-5px);
-      }
-
-      .stat-number {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 3rem;
-        color: var(--accent);
-        margin-bottom: 0.5rem;
-      }
-
-      .stat-label {
-        color: var(--text-secondary);
-        font-size: 0.9rem;
-        text-transform: uppercase;
-      }
-
-      /* Projects Page */
-      .projects-grid {
-        max-width: 1400px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-        gap: 2rem;
-        margin-top: 3rem;
-      }
-
-      .project-card {
-        border: 1px solid var(--border);
-        background: var(--bg-secondary);
-        padding: 2.5rem;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .project-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: var(--accent);
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-      }
-
-      .project-card:hover::before {
-        transform: scaleX(1);
-      }
-
-      .project-card:hover {
-        border-color: var(--accent);
-        transform: translateY(-5px);
-      }
-
-      .project-tag {
-        display: inline-block;
-        padding: 0.3rem 0.8rem;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        border: 1px solid var(--accent);
-        color: var(--accent);
-        margin-bottom: 1rem;
-      }
-
-      .project-title {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        color: var(--text-primary);
-      }
-
-      .project-description {
-        color: var(--text-secondary);
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-      }
-
-      .project-tech {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .tech-badge {
-        font-size: 0.75rem;
-        padding: 0.4rem 0.8rem;
-        background: var(--hover);
-        color: var(--text-secondary);
-        border: 1px solid var(--border);
-      }
-
-      .project-links {
-        display: flex;
-        gap: 1rem;
-      }
-
-      .project-link {
-        color: var(--accent);
-        text-decoration: none;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
-      }
-
-      .project-link:hover {
-        text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-      }
-
-      /* Skills Page */
-      .skills-container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .skills-category {
-        margin-bottom: 4rem;
-      }
-
-      .category-title {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 2.5rem;
-        color: var(--accent);
-        margin-bottom: 2rem;
-        border-bottom: 2px solid var(--border);
-        padding-bottom: 0.5rem;
-      }
-
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .skill-item {
-        border: 1px solid var(--border);
-        padding: 2rem;
-        background: var(--bg-secondary);
-        transition: all 0.3s ease;
-        position: relative;
-      }
-
-      .skill-item::before {
-        content: ">";
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--accent);
-        font-size: 1.5rem;
-        opacity: 0;
-        transition: all 0.3s ease;
-      }
-
-      .skill-item:hover::before {
-        opacity: 1;
-        left: 0.5rem;
-      }
-
-      .skill-item:hover {
-        border-color: var(--accent);
-        padding-left: 2.5rem;
-      }
-
-      .skill-name {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 0.5rem;
-      }
-
-      .skill-level {
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-        text-transform: uppercase;
-      }
-
-      /* Blogs Page */
-      .blogs-container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .blog-list {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        margin-top: 3rem;
-      }
-
-      .blog-item {
-        border: 1px solid var(--border);
-        padding: 3rem;
-        background: var(--bg-secondary);
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
-
-      .blog-item:hover {
-        border-color: var(--accent);
-        transform: translateX(10px);
-      }
-
-      .blog-date {
-        font-size: 0.85rem;
-        color: var(--accent);
-        text-transform: uppercase;
-        margin-bottom: 1rem;
-      }
-
-      .blog-title {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 2.5rem;
-        color: var(--text-primary);
-        margin-bottom: 1rem;
-      }
-
-      .blog-excerpt {
-        color: var(--text-secondary);
-        line-height: 1.8;
-        margin-bottom: 1.5rem;
-      }
-
-      .blog-tags {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
-
-      .blog-tag {
-        font-size: 0.75rem;
-        padding: 0.4rem 0.8rem;
-        border: 1px solid var(--border);
-        color: var(--text-secondary);
-        text-transform: uppercase;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        nav {
-          padding: 1.5rem 2rem;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .nav-links {
-          gap: 1.5rem;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-
-        .page {
-          padding: 6rem 2rem 2rem;
-        }
-
-        .hero-title {
-          font-size: 3rem;
-        }
-
-        .about-container {
-          grid-template-columns: 1fr;
-          gap: 2rem;
-        }
-
-        .projects-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .skills-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .cta-buttons {
-          flex-direction: column;
-          width: 100%;
-        }
-
-        .btn {
-          width: 100%;
-          text-align: center;
-        }
-      }
-
-      /* Terminal cursor effect */
-      .cursor {
-        display: inline-block;
-        width: 3px;
-        height: 1.2em;
-        background: var(--accent);
-        animation: blink 1s infinite;
-      }
-
-      @keyframes blink {
-        0%,
-        50% {
-          opacity: 1;
-        }
-        51%,
-        100% {
-          opacity: 0;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <nav>
-      <div class="logo">CYBER_SEC</div>
-      <ul class="nav-links">
-        <li>
-          <a href="#home" class="nav-link active" data-page="home">Home</a>
-        </li>
-        <li><a href="#about" class="nav-link" data-page="about">About</a></li>
-        <li>
-          <a href="#projects" class="nav-link" data-page="projects">Projects</a>
-        </li>
-        <li>
-          <a href="#skills" class="nav-link" data-page="skills">Skills</a>
-        </li>
-        <li><a href="https://blog.shaheerkj.me" class="nav-link" target="_blank" rel="noopener noreferrer">Blogs</a></li>
-      </ul>
-    </nav>
-
-    <!-- HOME PAGE -->
-    <div id="home" class="page active">
-      <h1 class="hero-title">YOUR NAME<span class="cursor"></span></h1>
-      <p class="hero-subtitle">Cybersecurity Student & DevSecOps Enthusiast</p>
-      <p class="hero-description">
-        Passionate about securing cloud infrastructure, automating security
-        workflows, and hunting threats. Currently exploring the intersection of
-        development and security operations.
-      </p>
-      <div class="cta-buttons">
-        <button class="btn" onclick="navigateTo('projects')">
-          View Projects
-        </button>
-        <button class="btn btn-secondary" onclick="navigateTo('about')">
-          Learn More
-        </button>
-      </div>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaheer Khalid — Identity & Cloud Security</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: #1e1e1e;
+    --border-mid: #2a2a2a;
+    --text: #e8e8e8;
+    --muted: #666;
+    --dim: #444;
+    --accent: #c8f542;
+    --accent-dim: #8aab24;
+    --mono: 'Geist Mono', monospace;
+    --sans: 'Geist', sans-serif;
+    --display: 'Fraunces', serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  section {
+    padding: 100px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav .inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  #hero {
+    padding-top: 160px;
+    padding-bottom: 100px;
+    border-top: none;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(48px, 8vw, 84px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 32px;
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .hero-desc strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0a;
+    border-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--dim);
+    border-color: var(--border-mid);
+  }
+
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: var(--dim);
+  }
+
+  .hero-stats {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .stat {
+    padding-right: 32px;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:last-child {
+    border-right: none;
+    padding-left: 32px;
+    padding-right: 0;
+  }
+
+  .stat:nth-child(2) {
+    padding-left: 32px;
+  }
+
+  .stat-num {
+    font-family: var(--display);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .project-item {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .project-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .project-item:hover .project-title {
+    color: var(--accent);
+  }
+
+  .project-item:hover .project-arrow {
+    transform: translate(3px, -3px);
+    color: var(--accent);
+  }
+
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .project-title {
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+    transition: color 0.2s;
+    letter-spacing: -0.01em;
+  }
+
+  .project-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
+  .project-tech {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .tech-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .project-arrow {
+    font-size: 18px;
+    color: var(--dim);
+    transition: all 0.2s;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  /* ── WRITEUPS ── */
+  .writeups-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .writeup-card {
+    background: var(--bg);
+    padding: 28px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+    display: block;
+  }
+
+  .writeup-card:hover {
+    background: var(--surface);
+  }
+
+  .writeup-card:hover .writeup-title {
+    color: var(--accent);
+  }
+
+  .writeup-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .writeup-category {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .writeup-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .writeup-title {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+    letter-spacing: -0.01em;
+  }
+
+  .writeup-excerpt {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .writeups-footer {
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 64px;
+  }
+
+  .skill-group-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .skill-name {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .skill-note {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .skill-item::before {
+    content: '—';
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--border-mid);
+    flex-shrink: 0;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding-bottom: 120px;
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contact-text h2 {
+    margin-bottom: 16px;
+  }
+
+  .contact-text p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .contact-link:last-child { border-bottom: none; }
+
+  .contact-link:hover {
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .contact-link:hover .link-arrow { color: var(--accent); }
+
+  .link-label { color: var(--dim); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .availability {
+    padding: 20px;
+    border: 1px solid var(--border);
+    margin-top: 0;
+  }
+
+  .avail-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .avail-text {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .avail-text strong { color: var(--accent); font-weight: 400; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+  }
+
+  footer .inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── FADE IN ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .container { padding: 0 20px; }
+    nav .inner { padding: 0 20px; }
+    .nav-links { gap: 20px; }
+    h1 { font-size: 48px; }
+    .hero-stats { grid-template-columns: 1fr; gap: 24px; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 24px 0; }
+    .stat:last-child { border-bottom: none; padding: 0; }
+    .stat:nth-child(2) { padding-left: 0; }
+    .writeups-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; gap: 32px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <a href="#hero" class="nav-logo">sk/</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#writeups">Writeups</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="container">
+  <section id="hero">
+    <div class="hero-label">Identity & Cloud Security</div>
+    <h1>Shaheer<br><span>Khalid.</span></h1>
+    <p class="hero-desc">
+      Final-year Cybersecurity student focused on <strong>Identity & Access Management</strong>. 
+      I audit cloud environments, configure identity systems, and document what breaks — 
+      and why it breaks.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">View Work</a>
+      <a href="https://github.com/shaheerkj" target="_blank" class="btn btn-ghost">GitHub</a>
+      <a href="https://linkedin.com/in/shaheerkj" target="_blank" class="btn btn-ghost">LinkedIn</a>
     </div>
 
-    <!-- ABOUT PAGE -->
-    <div id="about" class="page">
-      <div class="about-container">
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">IAM platforms hands-on</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Lab projects documented</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">SC-200</div>
+        <div class="stat-label">Cert in progress</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header fade-in">
+      <span class="section-num">01</span>
+      <h2>Projects</h2>
+    </div>
+
+    <div class="projects-list">
+
+      <a href="https://github.com/shaheerkj" target="_blank" class="project-item fade-in">
         <div>
-          <h2 class="section-title">About Me</h2>
-          <p class="about-text">
-            I'm a cybersecurity student with a passion for DevSecOps, cloud
-            security, and threat detection. My journey began with a curiosity
-            about how systems work and evolved into a mission to secure them.
-          </p>
-          <p class="about-text">
-            Currently focused on building automated security pipelines,
-            analyzing cloud misconfigurations, and developing backend systems
-            with security-first principles. I believe that security should be
-            integrated into every stage of development, not bolted on as an
-            afterthought.
-          </p>
-          <p class="about-text">
-            When I'm not breaking (and fixing) things, you'll find me exploring
-            new security tools, contributing to open-source projects, or
-            documenting my findings on my blog.
-          </p>
+          <div class="project-tag">Azure Entra ID · Graph API</div>
+          <div class="project-title">Entra ID IAM Auditor</div>
+          <div class="project-desc">
+            Queries an Entra ID tenant via Microsoft Graph API and PowerShell. Flags accounts missing MFA, identifies stale users, and surfaces over-privileged role assignments. Outputs a structured JSON + HTML report.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">PowerShell</span>
+            <span class="tech-tag">Graph API</span>
+            <span class="tech-tag">Entra ID</span>
+            <span class="tech-tag">RBAC</span>
+          </div>
         </div>
-        <div class="about-stats">
-          <div class="stat-box">
-            <div class="stat-number">50+</div>
-            <div class="stat-label">Projects Completed</div>
+        <div class="project-arrow">↗</div>
+      </a>
+
+      <a href="https://github.com/shaheerkj" target="_blank" class="project-item fade-in">
+        <div>
+          <div class="project-tag">AWS IAM · Python</div>
+          <div class="project-title">IAM Privilege Escalation Mapper</div>
+          <div class="project-desc">
+            Takes an IAM policy JSON as input. Cross-references it against known escalation paths and outputs which privilege escalation chains are achievable from that permission set — with CloudTrail detection rules for each.
           </div>
-          <div class="stat-box">
-            <div class="stat-number">10+</div>
-            <div class="stat-label">Certifications</div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">AWS IAM</span>
+            <span class="tech-tag">CloudTrail</span>
+            <span class="tech-tag">Least Privilege</span>
           </div>
-          <div class="stat-box">
-            <div class="stat-number">500+</div>
-            <div class="stat-label">GitHub Contributions</div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </a>
+
+      <a href="https://github.com/shaheerkj" target="_blank" class="project-item fade-in">
+        <div>
+          <div class="project-tag">Keycloak · OIDC · SAML</div>
+          <div class="project-title">SSO Federation Lab</div>
+          <div class="project-desc">
+            Deployed Keycloak as an OIDC/SAML Identity Provider. Configured SSO federation across three service providers. Documented the full trust relationship model — token issuance, assertion validation, and what breaks if misconfigured.
           </div>
-          <div class="stat-box">
-            <div class="stat-number">25+</div>
-            <div class="stat-label">Blog Articles</div>
+          <div class="project-tech">
+            <span class="tech-tag">Keycloak</span>
+            <span class="tech-tag">SAML 2.0</span>
+            <span class="tech-tag">OIDC</span>
+            <span class="tech-tag">Docker</span>
+          </div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </a>
+
+      <a href="https://github.com/shaheerkj" target="_blank" class="project-item fade-in">
+        <div>
+          <div class="project-tag">Prowler · AZQr · CIS Benchmark</div>
+          <div class="project-title">Azure Cloud Posture Assessment</div>
+          <div class="project-desc">
+            Ran Prowler and AZQr against a live Azure environment. Triaged findings by severity, mapped each to the CIS Azure Benchmark, and produced a remediation report — the kind of output you'd hand to a client.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Prowler</span>
+            <span class="tech-tag">AZQr</span>
+            <span class="tech-tag">CIS Azure</span>
+            <span class="tech-tag">CSPM</span>
+          </div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </a>
+
+      <a href="https://github.com/shaheerkj" target="_blank" class="project-item fade-in">
+        <div>
+          <div class="project-tag">Terraform · Azure</div>
+          <div class="project-title">Secure IAM Modules (Terraform)</div>
+          <div class="project-desc">
+            Reusable Terraform modules for Azure IAM — Conditional Access policies, PIM role assignments, and least-privilege RBAC definitions. Treats identity configuration as code with version control and peer review baked in.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Terraform</span>
+            <span class="tech-tag">Azure RBAC</span>
+            <span class="tech-tag">PIM</span>
+            <span class="tech-tag">IaC</span>
+          </div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- WRITEUPS -->
+  <section id="writeups">
+    <div class="section-header fade-in">
+      <span class="section-num">02</span>
+      <h2>Writeups</h2>
+    </div>
+
+    <div class="writeups-grid fade-in">
+      <a href="https://blog.shaheerkj.me" target="_blank" class="writeup-card">
+        <div class="writeup-meta">
+          <span class="writeup-category">IAM</span>
+          <span class="writeup-date">Mar 2026</span>
+        </div>
+        <div class="writeup-title">How Permanent Global Admin Assignments Create Uncontrolled Blast Radius</div>
+        <div class="writeup-excerpt">What PIM actually prevents, and why "it's easier without it" is the most common IAM mistake in small tenants.</div>
+      </a>
+
+      <a href="https://blog.shaheerkj.me" target="_blank" class="writeup-card">
+        <div class="writeup-meta">
+          <span class="writeup-category">Cloud Security</span>
+          <span class="writeup-date">Mar 2026</span>
+        </div>
+        <div class="writeup-title">Tracing an AWS Privilege Escalation Path: From Developer to Admin</div>
+        <div class="writeup-excerpt">How iam:PassRole + ec2:RunInstances becomes full account takeover — and the CloudTrail queries that catch it.</div>
+      </a>
+
+      <a href="https://blog.shaheerkj.me" target="_blank" class="writeup-card">
+        <div class="writeup-meta">
+          <span class="writeup-category">Identity Protocols</span>
+          <span class="writeup-date">Feb 2026</span>
+        </div>
+        <div class="writeup-title">SAML vs OIDC: Not Just a Format Difference</div>
+        <div class="writeup-excerpt">The architectural decisions behind choosing one over the other — and what each implies about your trust model.</div>
+      </a>
+
+      <a href="https://blog.shaheerkj.me" target="_blank" class="writeup-card">
+        <div class="writeup-meta">
+          <span class="writeup-category">OAuth 2.0</span>
+          <span class="writeup-date">Feb 2026</span>
+        </div>
+        <div class="writeup-title">OAuth Apps Are Persistent Identities — Audit Them Like One</div>
+        <div class="writeup-excerpt">Third-party OAuth tokens survive password resets. Most orgs have no idea what they've authorized.</div>
+      </a>
+    </div>
+
+    <div class="writeups-footer fade-in">
+      <a href="https://blog.shaheerkj.me" target="_blank" class="btn btn-ghost">All Writeups →</a>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header fade-in">
+      <span class="section-num">03</span>
+      <h2>Skills</h2>
+    </div>
+
+    <div class="skills-grid fade-in">
+      <div>
+        <div class="skill-group-label">Identity & Access</div>
+        <div class="skill-items">
+          <div class="skill-item">
+            <span class="skill-name">Privileged Identity Management</span>
+            <span class="skill-note">just-in-time</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Conditional Access</span>
+            <span class="skill-note">policy design</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Identity Lifecycle & SCIM</span>
+            <span class="skill-note">provisioning</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">SSO Federation</span>
+            <span class="skill-note">SAML / OIDC</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">OAuth 2.0 Governance</span>
+            <span class="skill-note">scope auditing</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Cloud Security</div>
+        <div class="skill-items">
+          <div class="skill-item">
+            <span class="skill-name">Azure Security Posture</span>
+            <span class="skill-note">Defender, AZQr</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">AWS IAM Policy Analysis</span>
+            <span class="skill-note">least privilege</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">CSPM Assessments</span>
+            <span class="skill-note">Prowler, CIS</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Infrastructure as Code</span>
+            <span class="skill-note">Terraform</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Zero Trust Architecture</span>
+            <span class="skill-note">design principles</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Detection & Monitoring</div>
+        <div class="skill-items">
+          <div class="skill-item">
+            <span class="skill-name">Microsoft Sentinel</span>
+            <span class="skill-note">KQL, analytics rules</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Entra ID Sign-in Logs</span>
+            <span class="skill-note">threat analysis</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">CloudTrail Analysis</span>
+            <span class="skill-note">AWS audit</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Identity Threat Detection</span>
+            <span class="skill-note">Defender for Identity</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Engineering</div>
+        <div class="skill-items">
+          <div class="skill-item">
+            <span class="skill-name">PowerShell Automation</span>
+            <span class="skill-note">Graph API</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Python Scripting</span>
+            <span class="skill-note">security tooling</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Azure Network Architecture</span>
+            <span class="skill-note">VNet, NSG, WAF</span>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">API Security Testing</span>
+            <span class="skill-note">Burp Suite, IDOR</span>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- PROJECTS PAGE -->
-    <div id="projects" class="page">
-      <h2 class="section-title">Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <span class="project-tag">DevSecOps</span>
-          <h3 class="project-title">CI/CD Security Scanner</h3>
-          <p class="project-description">
-            Automated security scanning pipeline integrated into GitHub Actions.
-            Scans for vulnerabilities, secrets, and misconfigurations before
-            deployment.
-          </p>
-          <div class="project-tech">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Docker</span>
-            <span class="tech-badge">GitHub Actions</span>
-            <span class="tech-badge">Trivy</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">View Code →</a>
-            <a href="#" class="project-link">Live Demo →</a>
-          </div>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner fade-in">
+      <div class="contact-text">
+        <div class="section-header" style="margin-bottom: 16px;">
+          <span class="section-num">04</span>
+          <h2>Contact</h2>
+        </div>
+        <p>
+          Open to remote IAM and Cloud Security roles. Also available for freelance 
+          IAM audits, Entra ID configuration, and cloud posture assessments.
+        </p>
+        <a href="mailto:shaheerkhalid963@gmail.com" class="btn btn-primary">Send Email</a>
+      </div>
+
+      <div>
+        <div class="contact-links">
+          <a href="mailto:shaheerkhalid963@gmail.com" class="contact-link">
+            <div>
+              <div class="link-label">Email</div>
+              <div>shaheerkhalid963@gmail.com</div>
+            </div>
+            <span class="link-arrow">↗</span>
+          </a>
+          <a href="https://linkedin.com/in/shaheerkj" target="_blank" class="contact-link">
+            <div>
+              <div class="link-label">LinkedIn</div>
+              <div>linkedin.com/in/shaheerkj</div>
+            </div>
+            <span class="link-arrow">↗</span>
+          </a>
+          <a href="https://github.com/shaheerkj" target="_blank" class="contact-link">
+            <div>
+              <div class="link-label">GitHub</div>
+              <div>github.com/shaheerkj</div>
+            </div>
+            <span class="link-arrow">↗</span>
+          </a>
+          <a href="https://blog.shaheerkj.me" target="_blank" class="contact-link">
+            <div>
+              <div class="link-label">Blog</div>
+              <div>blog.shaheerkj.me</div>
+            </div>
+            <span class="link-arrow">↗</span>
+          </a>
         </div>
 
-        <div class="project-card">
-          <span class="project-tag">Cloud Security</span>
-          <h3 class="project-title">AWS Compliance Checker</h3>
-          <p class="project-description">
-            Tool that audits AWS infrastructure against CIS benchmarks and
-            custom security policies. Generates detailed reports with
-            remediation steps.
-          </p>
-          <div class="project-tech">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Boto3</span>
-            <span class="tech-badge">AWS</span>
-            <span class="tech-badge">Lambda</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">View Code →</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <span class="project-tag">SOC</span>
-          <h3 class="project-title">SIEM Log Analyzer</h3>
-          <p class="project-description">
-            Real-time log analysis tool for detecting suspicious patterns and
-            anomalies. Integrates with Splunk and ELK stack.
-          </p>
-          <div class="project-tech">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Elasticsearch</span>
-            <span class="tech-badge">Kibana</span>
-            <span class="tech-badge">Splunk</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">View Code →</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <span class="project-tag">Backend</span>
-          <h3 class="project-title">Secure API Gateway</h3>
-          <p class="project-description">
-            RESTful API with built-in security features: rate limiting,
-            authentication, input validation, and comprehensive logging.
-          </p>
-          <div class="project-tech">
-            <span class="tech-badge">Node.js</span>
-            <span class="tech-badge">Express</span>
-            <span class="tech-badge">JWT</span>
-            <span class="tech-badge">Redis</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">View Code →</a>
-            <a href="#" class="project-link">Documentation →</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <span class="project-tag">Cloud Security</span>
-          <h3 class="project-title">Container Security Scanner</h3>
-          <p class="project-description">
-            Automated tool for scanning container images for vulnerabilities and
-            security best practices before pushing to registry.
-          </p>
-          <div class="project-tech">
-            <span class="tech-badge">Go</span>
-            <span class="tech-badge">Docker</span>
-            <span class="tech-badge">Kubernetes</span>
-            <span class="tech-badge">Harbor</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">View Code →</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <span class="project-tag">SOC</span>
-          <h3 class="project-title">Threat Intelligence Dashboard</h3>
-          <p class="project-description">
-            Real-time dashboard aggregating threat feeds from multiple sources.
-            Provides alerts and visualizations for security operations teams.
-          </p>
-          <div class="project-tech">
-            <span class="tech-badge">React</span>
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">D3.js</span>
-            <span class="tech-badge">MISP</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">View Code →</a>
-            <a href="#" class="project-link">Live Demo →</a>
-          </div>
+        <div class="availability" style="margin-top: -1px;">
+          <span class="avail-dot"></span>
+          <span class="avail-text"><strong>Available</strong> for remote roles & freelance work</span>
         </div>
       </div>
     </div>
+  </section>
+</div>
 
-    <!-- SKILLS PAGE -->
-    <div id="skills" class="page">
-      <div class="skills-container">
-        <h2 class="section-title">Skills & Technologies</h2>
+<!-- FOOTER -->
+<footer>
+  <div class="inner">
+    <span>Shaheer Khalid — 2026</span>
+    <span>Identity & Cloud Security</span>
+  </div>
+</footer>
 
-        <div class="skills-category">
-          <h3 class="category-title">DevSecOps</h3>
-          <div class="skills-grid">
-            <div class="skill-item">
-              <div class="skill-name">CI/CD Security</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">GitHub Actions</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Jenkins</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">GitLab CI</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">SAST/DAST Tools</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Container Security</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skills-category">
-          <h3 class="category-title">Cloud Security</h3>
-          <div class="skills-grid">
-            <div class="skill-item">
-              <div class="skill-name">AWS Security</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Azure Security</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">IAM & Access Control</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Cloud Compliance</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Terraform</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">CloudFormation</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skills-category">
-          <h3 class="category-title">SOC & Threat Detection</h3>
-          <div class="skills-grid">
-            <div class="skill-item">
-              <div class="skill-name">SIEM (Splunk, ELK)</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Log Analysis</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Incident Response</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Threat Intelligence</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">IDS/IPS</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Security Monitoring</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skills-category">
-          <h3 class="category-title">Backend & Development</h3>
-          <div class="skills-grid">
-            <div class="skill-item">
-              <div class="skill-name">Python</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Node.js</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Go</div>
-              <div class="skill-level">Intermediate</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">REST APIs</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Docker & Kubernetes</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">Linux System Admin</div>
-              <div class="skill-level">Advanced</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BLOGS PAGE -->
-    <div id="blogs" class="page">
-      <div class="blogs-container">
-        <h2 class="section-title">Blog & Articles</h2>
-        <div class="blog-list">
-          <div class="blog-item">
-            <div class="blog-date">January 15, 2026</div>
-            <h3 class="blog-title">
-              Building a Secure CI/CD Pipeline from Scratch
-            </h3>
-            <p class="blog-excerpt">
-              A comprehensive guide to implementing security at every stage of
-              your CI/CD pipeline. Learn about secret scanning, dependency
-              checks, and automated security testing.
-            </p>
-            <div class="blog-tags">
-              <span class="blog-tag">DevSecOps</span>
-              <span class="blog-tag">CI/CD</span>
-              <span class="blog-tag">Security</span>
-            </div>
-          </div>
-
-          <div class="blog-item">
-            <div class="blog-date">December 28, 2025</div>
-            <h3 class="blog-title">AWS Security Best Practices for 2026</h3>
-            <p class="blog-excerpt">
-              Updated security practices for AWS cloud infrastructure. Covers
-              IAM policies, encryption, network security, and compliance
-              automation.
-            </p>
-            <div class="blog-tags">
-              <span class="blog-tag">Cloud Security</span>
-              <span class="blog-tag">AWS</span>
-              <span class="blog-tag">Best Practices</span>
-            </div>
-          </div>
-
-          <div class="blog-item">
-            <div class="blog-date">December 10, 2025</div>
-            <h3 class="blog-title">
-              Hunting Threats with SIEM: A Beginner's Guide
-            </h3>
-            <p class="blog-excerpt">
-              Introduction to threat hunting using SIEM tools. Learn how to
-              write effective queries, detect anomalies, and respond to security
-              incidents.
-            </p>
-            <div class="blog-tags">
-              <span class="blog-tag">SOC</span>
-              <span class="blog-tag">SIEM</span>
-              <span class="blog-tag">Threat Hunting</span>
-            </div>
-          </div>
-
-          <div class="blog-item">
-            <div class="blog-date">November 22, 2025</div>
-            <h3 class="blog-title">
-              Container Security: Beyond Image Scanning
-            </h3>
-            <p class="blog-excerpt">
-              Deep dive into container security covering runtime protection,
-              network policies, and Kubernetes security best practices.
-            </p>
-            <div class="blog-tags">
-              <span class="blog-tag">Containers</span>
-              <span class="blog-tag">Kubernetes</span>
-              <span class="blog-tag">Security</span>
-            </div>
-          </div>
-
-          <div class="blog-item">
-            <div class="blog-date">November 5, 2025</div>
-            <h3 class="blog-title">
-              Securing APIs: Authentication & Rate Limiting
-            </h3>
-            <p class="blog-excerpt">
-              Practical guide to implementing robust API security including JWT
-              authentication, OAuth 2.0, and effective rate limiting strategies.
-            </p>
-            <div class="blog-tags">
-              <span class="blog-tag">Backend</span>
-              <span class="blog-tag">API Security</span>
-              <span class="blog-tag">Authentication</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      // Navigation functionality
-      const navLinks = document.querySelectorAll(".nav-link");
-      const pages = document.querySelectorAll(".page");
-
-      function navigateTo(pageId) {
-        // Remove active class from all pages and links
-        pages.forEach((page) => page.classList.remove("active"));
-        navLinks.forEach((link) => link.classList.remove("active"));
-
-        // Add active class to selected page and link
-        document.getElementById(pageId).classList.add("active");
-        document
-          .querySelector(`[data-page="${pageId}"]`)
-          .classList.add("active");
-
-        // Update URL
-        window.location.hash = pageId;
+<script>
+  // Fade in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
       }
+    });
+  }, { threshold: 0.1 });
 
-      // Handle navigation clicks
-      navLinks.forEach((link) => {
-        const pageId = link.getAttribute("data-page");
-          if (!pageId) return; // Skip links without data-page (external links)
-
-            link.addEventListener("click", (e) => {
-                e.preventDefault();
-                    navigateTo(pageId);
-                      });
-                      });
-
-
-      // Handle page load with hash
-      window.addEventListener("load", () => {
-        const hash = window.location.hash.substring(1);
-        if (hash) {
-          navigateTo(hash);
-        }
-      });
-
-      // Handle browser back/forward
-      window.addEventListener("hashchange", () => {
-        const hash = window.location.hash.substring(1);
-        if (hash) {
-          navigateTo(hash);
-        } else {
-          navigateTo("home");
-        }
-      });
-    </script>
-  </body>
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
 </html>
